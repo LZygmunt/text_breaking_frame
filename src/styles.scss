@@ -1,0 +1,100 @@
+$colors: (
+  "border": 2px solid #ababab,
+);
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#root { position: relative; }
+
+.block {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+  filter: brightness(60%);
+}
+
+.frame-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 36pt;
+
+  &::after {
+    border-bottom: map-get($colors, "border");
+    border-left: map-get($colors, "border");
+    border-right: map-get($colors, "border");
+    box-sizing: inherit;
+  }
+}
+
+.text-block {
+  width: 100%;
+  display: flex;
+
+  .text {
+    color: #ababab;
+    margin: 0;
+  }
+
+  &.top-text {
+    .text {
+      margin-top: -10px;
+      margin-right: 0.5em;
+      margin-bottom: 0.5em;
+      height: 1em;
+      width: 8em;
+      flex-shrink: 0;
+    }
+
+    span { text-transform: uppercase; }
+
+    &::after {
+      border-right: map-get($colors, "border");
+      border-top: map-get($colors, "border");
+    }
+  }
+
+  &.bottom-text {
+    text-align: right;
+    min-height: calc(100% - 2.585em);
+
+    .text {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    span { margin: 0.5em 0; }
+
+    &::before {
+      width: auto;
+      border-left: map-get($colors, "border");
+    }
+
+    .text::before, .text::after {
+      border-right: map-get($colors, "border");
+    }
+  }
+}
+
+.bottom-text::before,
+.bottom-text .text::before,
+.bottom-text .text::after,
+.top-text::after,
+.frame-cover::after,
+{
+  content: '';
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+}
