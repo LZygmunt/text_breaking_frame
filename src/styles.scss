@@ -1,5 +1,5 @@
-$colors: (
-  "border": 2px solid #ababab,
+$borders: (
+  "frame": 2px solid #ababab,
 );
 
 html, body {
@@ -7,11 +7,46 @@ html, body {
   padding: 0;
 }
 
-#root { position: relative; }
+#root {
+  background-color: #333;
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
+  color: #ababab;
+}
+
+.toggle {
+  flex: 0 0 14em;
+  border-right: map-get($borders, "frame");
+  padding-top: 1em;
+  padding-right: 1em;
+
+  input, label { margin-left: 1em; }
+}
+
+.frame {
+  position: relative;
+  min-width: 768px;
+  min-height: 652px;
+  border: map-get($borders, "frame");
+  resize: both;
+  overflow: auto;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: 0;
+    right: 0;
+    border-top: 30px solid transparent;
+    border-left: 30px solid transparent;
+    border-right: 30px solid #ababab;
+  }
+}
 
 .block {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-image: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
   filter: brightness(60%);
 }
@@ -29,9 +64,9 @@ html, body {
   font-size: 36pt;
 
   &::after {
-    border-bottom: map-get($colors, "border");
-    border-left: map-get($colors, "border");
-    border-right: map-get($colors, "border");
+    border-bottom: map-get($borders, "frame");
+    border-left: map-get($borders, "frame");
+    border-right: map-get($borders, "frame");
     box-sizing: inherit;
   }
 }
@@ -41,7 +76,6 @@ html, body {
   display: flex;
 
   .text {
-    color: #ababab;
     margin: 0;
   }
 
@@ -58,8 +92,8 @@ html, body {
     span { text-transform: uppercase; }
 
     &::after {
-      border-right: map-get($colors, "border");
-      border-top: map-get($colors, "border");
+      border-right: map-get($borders, "frame");
+      border-top: map-get($borders, "frame");
     }
   }
 
@@ -77,16 +111,21 @@ html, body {
 
     &::before {
       width: auto;
-      border-left: map-get($colors, "border");
+      border-left: map-get($borders, "frame");
+    }
+
+    &::after {
+      display: none;
     }
 
     .text::before, .text::after {
-      border-right: map-get($colors, "border");
+      border-right: map-get($borders, "frame");
     }
   }
 }
 
 .bottom-text::before,
+.bottom-text::after,
 .bottom-text .text::before,
 .bottom-text .text::after,
 .top-text::after,
@@ -97,4 +136,22 @@ html, body {
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
+}
+
+.left-side-content {
+  .bottom-text {
+    text-align: left;
+
+    &::before { display: none; }
+
+    &::after {
+      display: inline-block;
+      width: auto;
+      border-right: map-get($borders, "frame");
+    }
+
+    .text::before, .text::after { border-right: none; }
+
+    .text::after { border-left: map-get($borders, "frame"); }
+  }
 }

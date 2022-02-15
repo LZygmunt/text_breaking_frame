@@ -1,24 +1,43 @@
 import './styles.scss';
+import React, { useState } from "react";
 
-const App = () => (
-  <>
-    <div className="block" />
-    <div className="frame-cover">
-      <div className="text-block top-text">
-        <p className="text"><span>Lorem ipsum</span></p>
+// ToDo: base on mutation observer handle resize of div.frame
+
+const App = () => {
+  const [leftSide, setLeftSide] = useState(false);
+
+  return (
+    <>
+      <div className="toggle">
+        <label>
+          Move content to left
+          <input
+            type="checkbox"
+            checked={leftSide}
+            onChange={() => { setLeftSide((prevState) => !prevState); }}
+          />
+        </label>
       </div>
-      <div className="text-block bottom-text">
-        <p className="text">
-          <span>
-            Ea eum eveniet excepturi itaque
-            <br />
-            <br />
-            labore, nostrum suscipit tempore ut.
-          </span>
-        </p>
+      <div className="frame" style={{ height: 900, width: 1600 }}>
+        <div className="block" />
+        <div className={`frame-cover${leftSide ? ' left-side-content' : ''}`}>
+          <div className="text-block top-text">
+            <p className="text"><span>Lorem ipsum</span></p>
+          </div>
+          <div className="text-block bottom-text">
+            <p className="text">
+            <span>
+              Ea eum eveniet excepturi itaque
+              <br />
+              <br />
+              labore, nostrum suscipit tempore ut.
+            </span>
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 export default App;
