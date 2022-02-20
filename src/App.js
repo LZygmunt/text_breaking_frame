@@ -9,13 +9,14 @@ const App = () => {
   return (
     <>
       <div className="toggle">
-        <label>
-          Move content to left
-          <input
-            type="checkbox"
-            checked={leftSide}
-            onChange={() => { setLeftSide((prevState) => !prevState); }}
-          />
+        <input
+          id="switch"
+          type="checkbox"
+          checked={!leftSide}
+          onChange={() => { setLeftSide((prevState) => !prevState); }}
+        />
+        <label htmlFor="switch">
+          {`Move content to ${leftSide ? 'right': 'left'}`}
         </label>
       </div>
       <div className="frame" style={{ height: 900, width: 1600 }}>

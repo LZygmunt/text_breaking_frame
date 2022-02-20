@@ -16,12 +16,51 @@ html, body {
 }
 
 .toggle {
-  flex: 0 0 14em;
+  flex: 0 0 15em;
   border-right: map-get($borders, "frame");
-  padding-top: 1em;
-  padding-right: 1em;
+  padding: 1em;
 
-  input, label { margin-left: 1em; }
+  label[for="switch"] {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::after, &::before {
+      content: '';
+      border-radius: 1em;
+      display: block;
+    }
+
+    &::before {
+      width: 2em;
+      height: .9em;
+      margin-right: .5em;
+      border: .1em solid #ababab;
+    }
+
+    &::after {
+      position: absolute;
+      background-color: #ababab;
+      width: .7em;
+      height: .7em;
+      left: .2em;
+      transition: transform 500ms cubic-bezier(.3,.93,.91,.26);
+    }
+  }
+
+  #switch {
+    visibility: hidden;
+    position: absolute;
+
+    &::before {
+      content: '';
+      background-color: red;
+    }
+
+    &:checked + label[for="switch"]::after {
+      transform: translateX(1em);
+    }
+  }
 }
 
 .frame {
